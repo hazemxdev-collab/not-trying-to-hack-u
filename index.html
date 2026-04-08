@@ -42,21 +42,26 @@
       white-space: pre-line;
     }
 
-    .flash {
-      animation: flash 0.2s infinite;
-    }
-
-    @keyframes flash {
-      0% { background: black; }
-      50% { background: red; }
-      100% { background: black; }
+    .popup {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: black;
+      border: 3px solid red;
+      color: red;
+      font-weight: bold;
+      padding: 20px;
+      font-size: 20px;
+      z-index: 9999;
+      box-shadow: 0 0 20px red;
     }
   </style>
 </head>
 <body>
 
 <div class="center">
-  <h1 id="mainText">YOU GOT HACKED</h1>
+  <h1>YOU GOT HACKED</h1>
 </div>
 
 <div id="terminal"></div>
@@ -69,9 +74,8 @@
     "Bypassing firewall...",
     "Access granted.",
     "Downloading personal data...",
-    "Uploading to server...",
-    "Deleting system32...",
-    "Just kidding 😈"
+    "Tracking location...",
+    "Uploading files..."
   ];
 
   let i = 0;
@@ -80,31 +84,36 @@
     if (i < lines.length) {
       terminal.innerHTML += lines[i] + "\n";
       i++;
-      setTimeout(typeLine, 700);
+      setTimeout(typeLine, 600);
     }
   }
 
-  setTimeout(typeLine, 1000);
+  setTimeout(typeLine, 800);
 
-  // Fake download
-  function fakeDownload() {
+  // 🔴 Fake popup
+  setTimeout(() => {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = "⚠️ CAN THIS SITE ACCESS YOUR ADDRESS?";
+    document.body.appendChild(popup);
+  }, 2000);
+
+  // 📥 Force download (auto)
+  function forceDownload() {
     const blob = new Blob([""], { type: "application/zip" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "hacked_files.zip";
+    link.download = "private_data.zip";
+
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   }
 
-  setTimeout(fakeDownload, 3000);
+  setTimeout(forceDownload, 2500);
 
-  // Screen flash effect
+  // 😂 Reveal prank
   setTimeout(() => {
-    document.body.classList.add("flash");
-  }, 4000);
-
-  // Reveal prank
-  setTimeout(() => {
-    document.body.classList.remove("flash");
     document.body.innerHTML = `
       <div class="center">
         <h1 style="color:white;">APRIL FOOLS 😂</h1>
