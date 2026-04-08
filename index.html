@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>System Breach</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: #00ff00;
+      font-family: monospace;
+      overflow: hidden;
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 70px;
+      color: red;
+      animation: glitch 0.2s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      25% { transform: translate(3px, -3px); }
+      50% { transform: translate(-3px, 3px); }
+      75% { transform: translate(3px, 3px); }
+      100% { transform: translate(0); }
+    }
+
+    #terminal {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 18px;
+      white-space: pre-line;
+    }
+
+    .flash {
+      animation: flash 0.2s infinite;
+    }
+
+    @keyframes flash {
+      0% { background: black; }
+      50% { background: red; }
+      100% { background: black; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="center">
+  <h1 id="mainText">YOU GOT HACKED</h1>
+</div>
+
+<div id="terminal"></div>
+
+<script>
+  const terminal = document.getElementById("terminal");
+
+  const lines = [
+    "Initializing breach...",
+    "Bypassing firewall...",
+    "Access granted.",
+    "Downloading personal data...",
+    "Uploading to server...",
+    "Deleting system32...",
+    "Just kidding 😈"
+  ];
+
+  let i = 0;
+
+  function typeLine() {
+    if (i < lines.length) {
+      terminal.innerHTML += lines[i] + "\n";
+      i++;
+      setTimeout(typeLine, 700);
+    }
+  }
+
+  setTimeout(typeLine, 1000);
+
+  // Fake download
+  function fakeDownload() {
+    const blob = new Blob([""], { type: "application/zip" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "hacked_files.zip";
+    link.click();
+  }
+
+  setTimeout(fakeDownload, 3000);
+
+  // Screen flash effect
+  setTimeout(() => {
+    document.body.classList.add("flash");
+  }, 4000);
+
+  // Reveal prank
+  setTimeout(() => {
+    document.body.classList.remove("flash");
+    document.body.innerHTML = `
+      <div class="center">
+        <h1 style="color:white;">APRIL FOOLS 😂</h1>
+        <p style="color:gray;">You’re safe bro</p>
+      </div>
+    `;
+  }, 7000);
+</script>
+
+</body>
+</html>
